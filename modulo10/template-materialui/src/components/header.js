@@ -23,8 +23,8 @@ function Header() {
               <MenuIcon />
               */}
             </IconButton>
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              Gerenciamento de Projetos
+            <Typography align="center" variant="h6" component="div" sx={{ flexGrow: 1 }}>
+              Gerenciamento de Projetos - Michel Morgado
             </Typography>
           </Toolbar>
         </AppBar>

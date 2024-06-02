@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -33,12 +34,9 @@ function createData(
 
 //Definição do array contendo os dados iniciais da listagem de tarefas
 const initialRows = [
-  createData(1, 'Tarefa 1', 'Descrição da Tarefa 1', '2022-01-01', '2022-01-02', 'Concluída', 'Recurso 1'),
-  createData(2, 'Tarefa 2', 'Descrição da Tarefa 2', '2022-01-03', '2022-01-04', 'Em Andamento', 'Recurso 2'),
-  createData(3, 'Tarefa 3', 'Descrição da Tarefa 3', '2022-01-04', '2022-01-05', 'Em Andamento', 'Recurso 3'),
-  createData(4, 'Tarefa 4', 'Descrição da Tarefa 4', '2022-01-05', '2022-01-06', 'Em Andamento', 'Recurso 4'),
-  createData(5, 'Tarefa 5', 'Descrição da Tarefa 5', '2022-01-06', '2022-01-07', 'Em Andamento', 'Recurso 5'),
-  createData(6, 'Tarefa 6', 'Descrição da Tarefa 6', '2022-01-07', '2022-01-08', 'Aguardando', 'Recurso 6'),
+  createData(1, 'Tela Login', 'Feito a tela de login com usuário e senha', '2024-06-02', '2024-06-02', 'Concluída', 'Recurso 1'),
+  createData(2, 'Ajustes nos alinhamentos', 'Feito o alinhamento dos componentes', '2024-06-02', '2024-06-02', 'Concluída', 'Recurso 1'),
+  createData(2, 'Ajuste botão Sair', 'Feito o ajuste no código para sair do sistema', '2024-06-02', '2024-06-02', 'Concluída', 'Recurso 1'),
 ];
 
 //Componente ListarTarefa
@@ -52,6 +50,7 @@ const ListarTarefa = () => {
   const handleClose = () => setOpen(false);
   const handleOpenEditar = () => setOpenEditar(true);
   const handleCloseEditar = () => setOpenEditar(false);
+  const navigate = useNavigate(); // Hook para navegação
 
   //O array definido acima é setado como conteúdo do state Tarefas na renderização inicial do componente.
   useEffect(() => {
@@ -81,10 +80,15 @@ const ListarTarefa = () => {
     );
   };
 
+  const handleVoltar = () =>{
+    navigate('/'); // Redireciona para a página ListarTarefas
+  };
+
     return(
     <>
     <Card>
         <CardHeader
+          align="center"
           title="Tarefas"
           subheader="Listagem de Tarefas"
         /> 
@@ -93,15 +97,15 @@ const ListarTarefa = () => {
             <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
                 <TableHead>
                 <TableRow>
-                    <TableCell>#</TableCell>
+                    <TableCell>Id</TableCell>
                     <TableCell>Título</TableCell>
-                    <TableCell align="right">Descrição</TableCell>
-                    <TableCell align="right">Data de Início</TableCell>
-                    <TableCell align="right">Data de Finalização</TableCell>
-                    <TableCell align="right">Status</TableCell>
-                    <TableCell align="right">Recurso</TableCell>
-                    <TableCell align="left"></TableCell>
-                    <TableCell align="left"></TableCell>
+                    <TableCell align="left">Descrição</TableCell>
+                    <TableCell align="left">Data de Início</TableCell>
+                    <TableCell align="left">Data de Finalização</TableCell>
+                    <TableCell align="left">Status</TableCell>
+                    <TableCell align="left">Recurso</TableCell>
+                    <TableCell align="left">Editar</TableCell>
+                    <TableCell align="left">Excluir</TableCell>
                 </TableRow>
                 </TableHead>
                 <TableBody>
@@ -116,15 +120,15 @@ const ListarTarefa = () => {
                       <TableCell component="th" scope="row">
                           {row.tituloTarefa}
                       </TableCell>
-                      <TableCell align="right">{row.descricaoTarefa}</TableCell>
-                      <TableCell align="right">{row.inicioTarefa}</TableCell>
-                      <TableCell align="right">{row.fimTarefa}</TableCell>
-                      <TableCell align="right">{row.statusTarefa}</TableCell>
-                      <TableCell align="right">{row.recursoTarefa}</TableCell>
-                      <TableCell align="center">
+                      <TableCell align="left">{row.descricaoTarefa}</TableCell>
+                      <TableCell align="left">{row.inicioTarefa}</TableCell>
+                      <TableCell align="left">{row.fimTarefa}</TableCell>
+                      <TableCell align="left">{row.statusTarefa}</TableCell>
+                      <TableCell align="left">{row.recursoTarefa}</TableCell>
+                      <TableCell align="left">
                         <Button variant="contained" color="success" onClick={() => handleEditar(row.idTarefa)}><EditIcon fontSize="small" /></Button>            
                       </TableCell>
-                      <TableCell align="center">
+                      <TableCell align="left">
                         <Button variant="contained" color="error" onClick={() => handleDeletar(row.idTarefa)}><DeleteIcon fontSize="small" /></Button>            
                       </TableCell>
                     </TableRow>
@@ -134,8 +138,8 @@ const ListarTarefa = () => {
             </TableContainer>
         </CardContent>
         <CardActions>
-            <Button size="small" variant="contained" onClick={handleOpen}>Criar Tarefa</Button>
-            <Button size="small" variant="outlined">Cancelar</Button>
+            <Button size="medium" variant="contained" onClick={handleOpen}>Nova Tarefa</Button>
+            <Button size="medium" variant="outlined" onClick={handleVoltar}>Sair</Button>
       </CardActions> 
     </Card>
     <div>
